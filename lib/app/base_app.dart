@@ -1,8 +1,8 @@
+import 'package:core/app/core_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'microapp.dart';
-import 'core_utils.dart';
 
 abstract class BaseApp {
   List<MicroApp> get microApps;
@@ -28,7 +28,7 @@ abstract class BaseApp {
     if (navigateTo == null) return null;
 
     return MaterialPageRoute(
-      builder: (context) => navigateTo.call(context, routerArgs!),
+      builder: (context) => navigateTo.call(context, routerArgs),
     );
   }
 }
