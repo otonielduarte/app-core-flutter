@@ -1,6 +1,6 @@
-# micro_core
+# app-core-flutter
 
-A new Flutter package project.
+This application is a core for microapps applications.
 
 ## Getting Started
 
