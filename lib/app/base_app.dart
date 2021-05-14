@@ -1,4 +1,5 @@
 import 'package:core/app/core_utils.dart';
+import 'package:core/app/fade_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -27,8 +28,10 @@ abstract class BaseApp {
     var navigateTo = routes[routerName];
     if (navigateTo == null) return null;
 
-    return MaterialPageRoute(
-      builder: (context) => navigateTo.call(context, routerArgs),
+    return FadeRoute(
+      child: navigateTo,
+      routeName: routerName!,
+      routerArgs: routerArgs,
     );
   }
 }
