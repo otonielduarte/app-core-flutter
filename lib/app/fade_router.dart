@@ -5,11 +5,9 @@ class FadeRoute extends PageRouteBuilder {
   final WidgetBuilderArgs child;
   final Object? routerArgs;
   final String routeName;
-  FadeRoute({
-    required this.child,
-    required this.routeName,
-    required this.routerArgs,
-  }) : super(
+  FadeRoute(
+      {required this.child, required this.routeName, required this.routerArgs})
+      : super(
           settings: RouteSettings(name: routeName),
           pageBuilder: (
             BuildContext context,
