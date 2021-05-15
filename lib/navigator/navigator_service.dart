@@ -14,7 +14,11 @@ class NavigatorService {
     );
   }
 
-  void goBack() {
-    return navigatorKey.currentState!.pop();
+  void goBack() async {
+    if (navigatorKey.currentState!.canPop()) {
+      navigatorKey.currentState!.pop();
+    } else {
+      navigateTo('/example');
+    }
   }
 }
