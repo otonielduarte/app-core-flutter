@@ -8,8 +8,10 @@ class NavigatorService {
     if (queryParams != null) {
       routeName = Uri(path: routeName, queryParameters: queryParams).toString();
     }
-    return navigatorKey.currentState!
-        .pushNamed(routeName, arguments: queryParams);
+    return navigatorKey.currentState!.pushNamed(
+      routeName,
+      arguments: queryParams,
+    );
   }
 
   void goBack() {

@@ -1,7 +1,8 @@
 import 'package:core/app/core_utils.dart';
-import 'package:core/app/fade_router.dart';
+import 'package:core/routing/fade_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:core/extensions/string_extension.dart';
 
 import 'microapp.dart';
 
@@ -22,15 +23,18 @@ abstract class BaseApp {
   }
 
   Route<dynamic>? generateRoute(RouteSettings settings) {
-    var routerName = settings.name;
-    var routerArgs = settings.arguments;
+    final String routerName = settings.name!;
 
-    var navigateTo = routes[routerName];
+    final routingData = settings.name!.getRoutingData;
+    final routerArgs = routingData.args;
+    final navigateTo = routes[routingData.route];
+
     if (navigateTo == null) return null;
 
     return FadeRoute(
       child: navigateTo,
-      routeName: routerName!,
+      routerName: routerName,
+      routingData: routingData,
       routerArgs: routerArgs,
     );
   }

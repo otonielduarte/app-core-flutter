@@ -2,6 +2,8 @@ class RoutingData {
   final String route;
   final Map<String, String> _queryParameters;
 
+  Object get args => _queryParameters;
+
   RoutingData({
     required this.route,
     required Map<String, String> queryParameters,

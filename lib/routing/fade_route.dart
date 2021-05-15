@@ -1,14 +1,22 @@
 import 'package:core/core.dart';
+import 'package:core/routing/routing_data.dart';
 import 'package:flutter/widgets.dart';
 
 class FadeRoute extends PageRouteBuilder {
   final WidgetBuilderArgs child;
   final Object? routerArgs;
-  final String routeName;
-  FadeRoute(
-      {required this.child, required this.routeName, required this.routerArgs})
-      : super(
-          settings: RouteSettings(name: routeName),
+  final String routerName;
+  final RoutingData routingData;
+  FadeRoute({
+    required this.child,
+    required this.routingData,
+    required this.routerArgs,
+    required this.routerName,
+  }) : super(
+          settings: RouteSettings(
+            name: routerName,
+            arguments: routerArgs,
+          ),
           pageBuilder: (
             BuildContext context,
             Animation<double> animation,
@@ -21,9 +29,6 @@ class FadeRoute extends PageRouteBuilder {
             Animation<double> secondaryAnimation,
             Widget child,
           ) =>
-              FadeTransition(
-            opacity: animation,
-            child: child,
-          ),
+              FadeTransition(opacity: animation, child: child),
         );
 }
