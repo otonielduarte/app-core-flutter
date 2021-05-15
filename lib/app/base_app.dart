@@ -15,31 +15,24 @@ abstract class BaseApp {
 
   final Map<String, WidgetBuilderArgs> routes = {};
 
-  void registerNotFound() {
-    routes.addAll({
-      '/404': (context, args) => PageNotFound(),
-    });
-  }
-
   void registerRouters() {
     if (baseRoutes.isNotEmpty) routes.addAll(baseRoutes);
     if (microApps.isNotEmpty) {
-      registerNotFound();
       for (MicroApp microapp in microApps) {
         routes.addAll(microapp.routes);
       }
     }
   }
 
-  Route<dynamic>? generateUnknownRoute(RouteSettings settings) {
+  Route<dynamic> generateUnknownRoute(RouteSettings settings) {
+    print('page not found $settings');
     return FadeRoute(
       child: (context, args) => PageNotFound(),
       routerName: '/404',
-      routerArgs: {},
     );
   }
 
-  Route<dynamic>? generateRoute(RouteSettings settings) {
+  Route<dynamic> generateRoute(RouteSettings settings) {
     final String routerName = settings.name!;
 
     final routingData = settings.name!.getRoutingData;
@@ -47,8 +40,7 @@ abstract class BaseApp {
     final navigateTo = routes[routingData.route];
 
     if (navigateTo == null) {
-      // NavigatorService().navigateTo('/404');
-      return null;
+      return generateUnknownRoute(settings);
     }
     return FadeRoute(
       child: navigateTo,

@@ -7,7 +7,7 @@ class FadeRoute extends PageRouteBuilder {
   final String routerName;
   FadeRoute({
     required this.child,
-    required this.routerArgs,
+    this.routerArgs,
     required this.routerName,
   }) : super(
           settings: RouteSettings(
