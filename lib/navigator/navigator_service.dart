@@ -18,7 +18,7 @@ class NavigatorService {
     if (navigatorKey.currentState!.canPop()) {
       navigatorKey.currentState!.pop();
     } else {
-      navigateTo('/example');
+      navigateTo('/');
     }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:core/routing/routing_data.dart';
 import 'package:flutter/widgets.dart';
 
 class FadeRoute extends PageRouteBuilder {
