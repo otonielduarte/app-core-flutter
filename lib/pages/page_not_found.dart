@@ -11,11 +11,23 @@ class PageNotFound extends StatelessWidget {
       body: Center(
         child: Container(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Page not found!"),
-              ElevatedButton(
-                  onPressed: () => NavigatorService().goBack(),
-                  child: Text("Go back"))
+              Text(
+                "Page not found!",
+                style: TextStyle(fontSize: 24),
+              ),
+              SizedBox(
+                height: 24,
+              ),
+              TextButton.icon(
+                onPressed: () => NavigatorService().goBack(),
+                icon: Icon(Icons.arrow_left),
+                label: Text(
+                  "Go back",
+                  style: TextStyle(fontSize: 16),
+                ),
+              )
             ],
           ),
         ),

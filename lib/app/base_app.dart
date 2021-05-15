@@ -24,14 +24,6 @@ abstract class BaseApp {
     }
   }
 
-  Route<dynamic> generateUnknownRoute(RouteSettings settings) {
-    print('page not found $settings');
-    return FadeRoute(
-      child: (context, args) => PageNotFound(),
-      routerName: '/404',
-    );
-  }
-
   Route<dynamic> generateRoute(RouteSettings settings) {
     final String routerName = settings.name!;
 
@@ -40,12 +32,27 @@ abstract class BaseApp {
     final navigateTo = routes[routingData.route];
 
     if (navigateTo == null) {
-      return generateUnknownRoute(settings);
+      return _generateUnknownRoute(settings);
     }
+    return _generateRoute(navigateTo, routerName, routerArgs);
+  }
+
+  _generateRoute(
+    WidgetBuilderArgs navigateTo,
+    String routerName,
+    Object routerArgs,
+  ) {
     return FadeRoute(
       child: navigateTo,
       routerName: routerName,
       routerArgs: routerArgs,
+    );
+  }
+
+  _generateUnknownRoute(RouteSettings settings) {
+    return FadeRoute(
+      child: (context, args) => PageNotFound(),
+      routerName: '/404',
     );
   }
 }
