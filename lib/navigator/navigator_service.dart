@@ -11,10 +11,18 @@ class NavigatorService {
     if (queryParams != null) {
       uri = Uri(path: routeName, queryParameters: queryParams);
     }
-    print('queryParameters: ${uri.queryParameters} path: ${uri.path}');
-    return navigatorKey.currentState!.pushNamed(routeName,
-        arguments:
-            Arguments().copyWith(params: queryParams, uri: uri, data: data));
+
+    print(
+        '[NavigatorService] queryParameters: ${uri.queryParameters} path: ${uri.path}');
+
+    return navigatorKey.currentState!.pushNamed(
+      routeName,
+      arguments: Arguments().copyWith(
+        params: queryParams,
+        uri: uri,
+        data: data,
+      ),
+    );
   }
 
   void goBack() async {
