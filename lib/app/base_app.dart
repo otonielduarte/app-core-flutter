@@ -1,10 +1,10 @@
 import 'package:core/app/core_utils.dart';
 import 'package:core/core.dart';
+import 'package:core/interfaces/arguments.dart';
 import 'package:core/pages/page_not_found.dart';
-import 'package:core/routing/fade_route.dart';
+import 'package:core/transition/fade_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:core/extensions/string_extension.dart';
 
 import 'microapp.dart';
 
@@ -25,26 +25,33 @@ abstract class BaseApp {
   }
 
   Route<dynamic> generateRoute(RouteSettings settings) {
-    final String routerName = settings.name!;
+    final Uri uri = Uri.parse(settings.name!);
+    final String routerName = uri.path;
 
-    final routingData = settings.name!.getRoutingData;
-    final routerArgs = routingData.args;
-    final navigateTo = routes[routingData.route];
+    final Arguments routerArgs = settings.arguments != null
+        ? (settings.arguments as Arguments)
+        : Arguments(uri: uri, params: uri.queryParameters);
+    print('settings $settings');
 
+    final navigateTo = routes[routerName];
     if (navigateTo == null) {
       return _generateUnknownRoute(settings);
     }
-    return _generateRoute(navigateTo, routerName, routerArgs);
+
+    String path = routerArgs.uri?.toString() ?? routerName;
+    //print('navigate > $navigateTo, path > $path, routerArgs > $routerArgs');
+
+    return _generateRoute(navigateTo, path, routerArgs);
   }
 
   _generateRoute(
     WidgetBuilderArgs navigateTo,
-    String routerName,
-    Object routerArgs,
+    String path,
+    Arguments? routerArgs,
   ) {
     return FadeRoute(
       child: navigateTo,
-      routerName: routerName,
+      path: path,
       routerArgs: routerArgs,
     );
   }
@@ -52,7 +59,7 @@ abstract class BaseApp {
   _generateUnknownRoute(RouteSettings settings) {
     return FadeRoute(
       child: (context, args) => PageNotFound(),
-      routerName: '/404',
+      path: '/404',
     );
   }
 }
