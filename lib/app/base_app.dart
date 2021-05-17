@@ -24,7 +24,7 @@ abstract class BaseApp {
     }
   }
 
-  Route<dynamic> generateRoute(RouteSettings settings) {
+  Route<dynamic>? generateRoute(RouteSettings settings) {
     final Uri uri = Uri.parse(settings.name!);
     final String routerName = uri.path;
 
@@ -54,7 +54,7 @@ abstract class BaseApp {
         }
       });
       if (dynamicRoute != null) return dynamicRoute!;
-      return _generateUnknownRoute();
+      return null;
     }
 
     String path = routerArgs.uri?.toString() ?? routerName;
@@ -74,7 +74,7 @@ abstract class BaseApp {
     );
   }
 
-  _generateUnknownRoute() {
+  Route<dynamic>? generateUnknownRoute(RouteSettings settings) {
     return FadeRoute(
       child: (context, args) => PageNotFound(),
       path: '/404',
@@ -97,7 +97,7 @@ RoutingData? _parseUrlParams(String routeNamed, Uri uri) {
     final regExp =
         RegExp("^${prepareToRegex(routeNamed)}\$", caseSensitive: true);
 
-    var r = regExp.firstMatch(uri.path);
+    final r = regExp.firstMatch(uri.path);
     if (r != null) {
       final Map<String, dynamic> params = {};
       final routeParts = routeNamed.split('/');

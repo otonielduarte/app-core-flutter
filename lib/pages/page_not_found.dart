@@ -21,7 +21,7 @@ class PageNotFound extends StatelessWidget {
                 height: 24,
               ),
               TextButton.icon(
-                onPressed: () => NavigatorService().goBack(),
+                onPressed: () => NavigatorService().navigateTo('/home'),
                 icon: Icon(Icons.arrow_left),
                 label: Text(
                   "Go back",

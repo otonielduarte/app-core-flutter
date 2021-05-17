@@ -27,9 +27,11 @@ class NavigatorService {
 
   void goBack() async {
     if (navigatorKey.currentState!.canPop()) {
+      print('canpop');
       navigatorKey.currentState!.pop();
     } else {
-      navigateTo('/');
+      print('redirect');
+      navigateTo('/home');
     }
   }
 }
